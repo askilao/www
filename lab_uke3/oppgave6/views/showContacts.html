@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <title>Oppgave 6</title>
+  <style>
+  	.container {
+  		margin-left: 0px;
+  	}
+  </style>
+</head>
+<body>
+<a href="index.html">Back</a> <br>
+<div class="container">
+	<div class="row">
+	    <div class="col-md-6">
+	        <div class="card">
+	           <div class="card-header">
+		            <h1>All contacts: </h1>
+		        </div>
+		        <div class="gaadiex-list">
+		        	{% for contact in contacts %}
+		            <div class="gaadiex-list-item">
+		                 <h3><a href="#">Name: {{ contact.navn }}</a></h3>
+                        <h4>Telephone: {{ contact.telefon }}</h4>
+                        <h4>Email: {{ contact.epost }}</h4>
+		            </div>
+		            {% endfor %}
+		        </div>
+
+	        </div>
+	    </div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <?php
-  require_once "../twig/vendor/autoload.php";
+  require_once "../../twig/vendor/autoload.php";
 
   $loader = new Twig_Loader_Filesystem('views');
   $twig = new Twig_Environment($loader, array(
@@ -24,14 +24,20 @@ function dbload() {
 }
   function addContact($name, $telephone, $email) {
 
+    $dbh = dbload();
+    $sql = 'INSERT INTO kontaktinfo (navn, telefon, epost) values (?, ?, ?)';
+    $sth = $dbh->prepare ($sql);
+    $sth-> execute (array ($name, $telephone, $email));
+
+    echo "Contact Created";
     
 }
-   function checkContact() {
+   function checkContact($email) {
 
     $dbh = dbload();
-    $sql = 'SELECT * FROM kontaktinfo WHERE epost = '".$username."'';
+    $sql = 'SELECT * FROM kontaktinfo WHERE epost = ?';
     $sth = $dbh->prepare ($sql);
-    $sth-> execute (array ($_POST['email']));
+    $sth-> execute (array ($email));
     if ($sth->rowCount()>=1) {
       return true;
     } else {
@@ -41,11 +47,16 @@ function dbload() {
 
 
 if (isset($_POST['addContact'])) {
-  
-  if (checkContact()) {
-    echo "true";
+
+  $name = $_POST['name'];
+  $telephone = $_POST['telephone'];
+  $email = $_POST['email'];
+
+
+  if (checkContact($email)) {
+    echo "Contact already exists";
   } else {
-    echo "false";
+    addContact($name, $telephone, $email);
   }
 
 }
