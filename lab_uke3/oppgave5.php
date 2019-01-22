@@ -8,10 +8,9 @@
 ));
 	$res = Pinterest::getPinsWithURLS("mathematical riddles fun");
 	
-	
 	$data["pins"] = $res;
 	
 
-	echo $twig->render('oppgave4.html', $data);
+	echo $twig->render('oppgave5.html', $data);
 
 ?>
