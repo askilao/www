@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Oppgave 6</title>
+  <style media="screen">
+    label {
+      display: inline-block;
+      width: 85px;
+      float: left;
+    }
+
+    input {
+      display: inline-block;
+      width; 150px;
+    }
+    input[type="submit"] {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contant Form</h1>
+  <form action="oppgave6add.php" method="post">
+    <label for="name">Name</label><input type="text" name="name" id="name"><br>
+    <label>Telephone</label><input type="tel" name="telephone"><br>
+    <label>Email</label><input type="email" name="email"><br>
+    <input type="submit" name="addContact" value="Add Contact">
+  </form>
+
+</body>
+</html>
