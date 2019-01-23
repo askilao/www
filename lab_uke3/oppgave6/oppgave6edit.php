@@ -6,13 +6,12 @@
   $twig = new Twig_Environment($loader, array(
     //'cache' => './compilation_cache',
 ));
- 
 
-  $contacts = new Contacts();
-  $result = $contacts->showContact();
+ if (isset($_GET['type'])) {
+ 	echo $_GET['email'];
 
- echo $twig->render('showContacts.html', $result);
-
-
+  	#echo $twig->render('showContacts.html', $result);
+}
+;
 
 ?>
