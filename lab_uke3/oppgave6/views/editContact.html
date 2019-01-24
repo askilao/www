@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Oppgave 6</title>
+  <style media="screen">
+    label {
+      display: inline-block;
+      width: 85px;
+      float: left;
+    }
+
+    input {
+      display: inline-block;
+      width; 150px;
+    }
+    input[type="submit"] {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html">Back</a> <br>
+  <h1>Edit Contact</h1>
+  <form action="oppgave6edit.php" method="post">
+      <input type="hidden" value="{{contacts[0].id}}" name="id"> <br>
+      <label for="name">Name</label><input type="text" name="name" id="name" value="{{contacts[0].navn}}" required><br>
+      <label>Telephone</label><input type="tel" name="telephone" value="{{contacts[0].telefon}}"><br>
+      <label>Email</label><input type="email" name="email" value="{{contacts[0].epost}}"><br>
+    <input type="submit" name="updateContact" value="Update">
+  </form>
+
+</body>
+</html>

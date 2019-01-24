@@ -27,7 +27,7 @@
 		                 <h3><a href="#">Name: {{ contact.navn }}</a></h3>
                         <h4>Telephone: {{ contact.telefon }}</h4>
                         <h4>Email: {{ contact.epost }}</h4>
-                        	<a href="oppgave6edit.php?type=edit&email={{ contact.epost }}" >
+                        	<a href="oppgave6edit.php?type=edit&id={{ contact.id }}" >
                         		<input class="btn btn-primary" type="submit" value="Edit" name="editContact">
           					</a>
           					<a href="oppgave6edit.php?type=delete&email={{ contact.epost }}" >

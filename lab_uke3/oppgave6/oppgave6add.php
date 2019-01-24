@@ -13,7 +13,7 @@
 
 
 if (isset($_POST['addContact'])) {
-
+  $data['id'] = md5(time());
   $data['name'] = $_POST['name'];
   $data['telephone'] = $_POST['telephone'];
   $data['email'] = $_POST['email'];
