@@ -18,7 +18,7 @@ if ($db==null) {
 $user = new User($db);
 $userdata['username'] = "email@email";
 $userdata['password'] = "password";
-$user->addUser($userdata);
+#$user->addUser($userdata);
 ?>
 <form id="login" method="POST" action="index.php">
   <input type="hidden" name="login" value="1"><!-- Must have a field other than the button for Mink -->
