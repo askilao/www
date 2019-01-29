@@ -28,12 +28,12 @@ class User {
 
     if (isset($userdata['optional'])) {
         $sql.= ', optional';
-        $extra = ',? ';
+        $extra = ', ?';
     }
     $sql .= ") VALUES (?, ?$extra)";
     
     $sth = $this->db->prepare($sql);
-
+    $tmp['sql'] = $sql;
     $sqldata = array ($userdata['username'], password_hash($userdata['password'], PASSWORD_DEFAULT));
     if(isset($userdata['optional'])) {
         array_push ($sqldata, $userdata['optional']);

@@ -16,9 +16,11 @@ if ($db==null) {
     die();
 }
 $user = new User($db);
-$userdata['username'] = "email@email";
+$userdata['username'] = "tesit2";
 $userdata['password'] = "password";
-#$user->addUser($userdata);
+$userdata['optional'] = "testing optional";
+$res = $user->addUser($userdata);
+echo $res['sql'];
 ?>
 <form id="login" method="POST" action="index.php">
   <input type="hidden" name="login" value="1"><!-- Must have a field other than the button for Mink -->
