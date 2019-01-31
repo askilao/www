@@ -1,0 +1,2 @@
+tests/unit/UserTest.php:testCreateUser
+tests/unit/UserTest.php:testCanLogIn
