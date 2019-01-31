@@ -1,0 +1,16 @@
+{% if loggedin == 'yes' %}
+<h1 id="secretMessage">User page</h1>
+
+<form id="logout" method="POST" action="index.php">
+  <input type="hidden" name="logout" value="1"><!-- Must have a field other than the button for Mink -->
+  <input type="submit" value="logg ut">
+</form>
+{% else %}
+<p>Ikke logget inn</p>
+
+<form id="login" method="POST" action="index.php">
+  <label for="loginUname">Username</label> <input type="text" name="username" id="loginUname" placeholder="email address">
+  <label for="loginPwd">Password</label> <input type="password" name="password" id="loginPwd">
+  <input type="submit" value="logg inn">
+</form>
+{% endif %}
