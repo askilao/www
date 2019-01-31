@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lab 3 oppgave 2</title>
+<style>
+@media (min-width:470px) {
+.images {
+  width: 450px;
+  padding: 0;
+  column-count: 2;
+}
+}
+@media (min-width:8000px) {
+.images {
+  width: 750px;
+  padding: 0;
+  column-count:2;
+}
+}
+@media (min-width:1500px) {
+.images {
+  width: 1450px;
+  padding: 0;
+  column-count: 6;
+}
+}
+</style>
+</head>
+<body>
+<div class="images">
+	{% for pin in pins %}
+	<div>
+		<a href="{{ pin.url }}" target="_blank"
+        ><img src="{{ pin.img }}" alt="pinterest pin"></a>
+	</div>>
+	{% endfor %}
+</div>
+	
+</body>
+</html>
