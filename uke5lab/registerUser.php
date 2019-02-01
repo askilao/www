@@ -1,7 +1,4 @@
 <?php
-session_start();
-
-$test = 2;
 require_once "./classes/User.php";
 require_once "./classes/DB.php";
 require_once "./twig/vendor/autoload.php";
@@ -15,19 +12,17 @@ if ($db==null) {
     echo $twig->render('nodb.html', array('errmessage' => 'Error: no DB connection'));
     die();
 }
-$user = new User($db);
+
+
+echo $twig->render('registerUser.html', array(
+));
 
 if (isset($_POST['register'])) {
   $data['username'] = $_POST['username'];
   $data['password'] = $_POST['password'];
   $data['optional'] = $_POST['optional'];
+  $user = new User($db);
   $user->addUser($data);
+  header("Location: index.php");
 }
-
-if ($user->loggedIn()) {
-    echo $twig->render('index.html', array('loggedin' => 'yes' ));
-  } else {
-    echo $twig->render('index.html', array(
-    ));
-  }
-
+?>
