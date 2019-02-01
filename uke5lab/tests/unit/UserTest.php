@@ -27,7 +27,6 @@ class UserTest extends \Codeception\Test\Unit
         $data = $this->user->addUser($this->userdata);
         $this->assertEquals('OK', $data['status'], 'Failed to create user!');
         $contactID = $data['id'];
-        $this->assertTrue($contactID>0, 'Error in userID, should be > 0');
         $deleteResult = $this->user->deleteUser($data['id']);
         $this->assertEquals('OK', $data['status'], 'Failed to delete!');
     }
@@ -35,6 +34,8 @@ class UserTest extends \Codeception\Test\Unit
         $userdata = $this->user->addUser($this->userdata);
         $data = $this->user->login($this->userdata['username'], $this->userdata['password']);
         $this->assertEquals('OK', $data['status'], 'User cant login!');
+
+
         $deleteResult = $this->user->deleteUser($userdata['id']);
         $this->assertEquals('OK', $data['status'], 'Failed to delete!');
     }
