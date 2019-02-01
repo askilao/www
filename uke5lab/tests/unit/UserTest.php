@@ -1,6 +1,6 @@
 <?php 
-require_once "./classes/User.php";
-require_once "./classes/DB.php";
+require_once "../html/classes/User.php";
+require_once "../html/classes/DB.php";
 class UserTest extends \Codeception\Test\Unit
 {
     /**
@@ -10,6 +10,7 @@ class UserTest extends \Codeception\Test\Unit
     private $email, $optional, $userdata;
     private $password = 'password';
     private $user;
+    private $db;
 
     protected function _before(){
         $db = DB::getDBConnection();
@@ -30,15 +31,19 @@ class UserTest extends \Codeception\Test\Unit
         $this->assertEquals('OK', $data['status'], 'Failed to create user!');
         $contactID = $data['id'];
         $this->assertTrue($contactID>0, 'Error in userID, should be > 0');
-        $deleteResult = $this->user->deleteUser($contactID);
+
+
+        $deleteResult = $this->user->deleteUser($data['id']);
         $this->assertEquals('OK', $data['status'], 'Failed to delete!');
 
     }
     public function testCanLogIn(){
-        $data = $this->user->addUser($this->userdata);
+        $userdata = $this->user->addUser($this->userdata);
         $data = $this->user->login($this->userdata['username'], $this->userdata['password']);
-        $this->assertEquals('OK', $data['status'], 'User can login!');
-        $deleteResult = $this->user->deleteUser($contactID);
+        $this->assertEquals('OK', $data['status'], 'User cant login!');
+
+
+        $deleteResult = $this->user->deleteUser($userdata['id']);
         $this->assertEquals('OK', $data['status'], 'Failed to delete!');
 
     }
