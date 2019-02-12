@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	 <title>Main Page</title>
+</head>
+<body>
+	<h1> Front page </h1>
+	<a href="upload.php"> Upload file</a>
+	<div class="images">
+	{% for file in files %}
+	 <div class="image">
+		<a href="fetchImage.php?id={{file.id}}" download="{{file.name}}">
+			<img src="fetchImage.php?thumbnail=true&id={{file.id}}"><br>
+	 	</a>
+	  </div>
+	{% endfor %}
+	</div>
+</body>
+</html>
