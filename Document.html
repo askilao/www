@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- saved from url=(0124)https://ntnu.blackboard.com/bbcswebdav/pid-547505-dt-content-rid-19096774_1/courses/194_IMT2291_1_2019_V_1/ntnu_studier.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: row;
+    }
+
+    body>div {
+      margin: 15px 3em;
+    }
+
+    #studier>div {
+      margin-bottom: .5em;
+    }
+
+    #studier b {
+      color: #61960b;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body style="">
+  <div class="studiested">
+    <b>Studiested</b><br>
+    <p>
+      <xxxx type="checkbox" value="Trondheim"> Trondheim<br>
+      <xxxx type="checkbox" value="Ålesund"> Ålesund<br>
+      <xxxx type="checkbox" value="Gjøvik"> Gjøvik<br>
+    </xxxx></xxxx></xxxx></p>
+  </div>
+  <div id="studier">
+  </div>
+  <xxxx>
+    let studier = null;
+    function visStudier(studier) {
+      var html = '';
+      studier.forEach(studium=&gt;{
+        html += `<div><b>${studium.name}</b><br>${studium.studyLevel}, ${studium.location}</div>`;
+      });
+      document.querySelector('#studier').innerHTML = html;
+    }
+
+    var oReq = new XMLHttpRequest();
+    oReq.onload = function (res) {
+      studier = JSON.parse(res.target.responseText);
+      visStudier(studier);
+    };
+    oReq.open("GET", "proxy.php?p="+encodeURIComponent("https://www.ntnu.no/web/studier/alle?p_p_id=studyprogrammelistportlet_WAR_studyprogrammelistportlet_INSTANCE_Xs4L&amp;p_p_lifecycle=2&amp;p_p_state=normal&amp;p_p_mode=view&amp;p_p_resource_id=allStudies&amp;p_p_cacheability=cacheLevelPage&amp;p_p_col_id=column-1&amp;p_p_col_pos=1&amp;p_p_col_count=2"));
+    oReq.send();
+
+    document.querySelectorAll("input").forEach(input=&gt;{
+      input.addEventListener('change', e=&gt;{
+        let filter=[];
+        document.querySelectorAll('input:checked').forEach(checked=&gt;{  // Gå gjennom alle valgte input elementer
+          filter.push(checked.value);                    // Legg til valgt element i filter arrayen
+        })
+        if (filter.length==0) {                      // Dersom tomt filter skal alle tilbud vises
+          visStudier(studier);                         // returner alle studier
+        } else {
+          let tmpStudier = studier.filter(studium=&gt;{           // Filtrer studier, slik at
+            if (filter.indexOf(studium.location)&gt;=0) { // de studier hvor location finnes i filter
+              return true;                             // returneres
+            }
+            return false;                              // alle andre studier fjernes
+          });
+          visStudier(tmpStudier);
+        }
+      });
+    });
+  </xxxx>
+
+
+</body></html>

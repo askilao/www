@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+  <title>Lab 2 HTML5 Form</title>
+  <style>
+    .circle {                    /* The black circles with numbers in them */
+      border-radius: 12px;
+      width: 22px;
+      height: 24px;
+      margin-top: 0.5em;
+      margin-right: 1em;
+      display: inline-block;
+      padding-left: 0.4em;
+    }
+
+    body {
+      background-color: #EEE;
+    }
+
+    h1 {
+      padding-bottom: 1em;
+    }
+
+    form {
+      padding-left: 2em;
+      width: 100%;
+    }
+
+    .form-group>div, .summary {  /* For the first div within each div with class form-group, and the div with class summary Whwre firtname etc is and summary*/
+      background-color: #FFF;
+      margin: 3px;
+      padding-left: 0.5em;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    input[type="submit"] {        /* Manipulate the submit button */
+      padding: 1em !important;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .summary {                    /* The white box with order summary */
+      padding: 2px;
+      margin-top: 2.5em;          /* Push it down from the top */
+    }
+
+    .summary>div {                /* The div within the div with class summary. */
+      border: 1px solid #DDD;     /* Draw thin line within the white box */
+      margin: 2px;
+      padding: 0.2em 0.5em 0 0.5em;
+    }
+
+    .form-control {  /* No borders on input fields */
+      border: 0px;
+    }
+
+    .outer {
+      transform: scale(0.8, 0.8);  /* Make it a bit smaler (bootstrap is quite large) */
+    }
+  </style>
+</head>
+<body>
+  <div class="container outer">
+    <h1>You've come a long way baby</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+
+          <form>
+            <div class="d-flex flex-row">
+              <div class="circle text-light bg-dark">1</div>
+              <h3>Personal information</h3>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <div>
+                  <label for="firstName">First name</label>
+                  <input type="text" minlength="2" class="form-control" id="firstName" placeholder="Elon" required>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <div>
+                  <label for="lastName">Last name</label>
+                  <input type="text" minlength="2" class="form-control" id="lastName" placeholder="Musk" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <div>
+                  <label for="email">Email</label>
+                  <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" class="form-control" id="email" placeholder="elon@spacex.com" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <div>
+                  <label for="country">Country</label>
+                  <select id="country" class="form-control">
+                    <option selected>United States</option>
+                    <option>...</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <div>
+                  <label for="postal">Postal code</label>
+                  <input pattern="[0-9]{5,5}" type="text" class="form-control" id="postal" placeholder="10001" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <div>
+                  <label for="phone">Phone number</label>
+                  <input pattern="^(1[ \-\+]{0,3}|\+1[ -\+]{0,3}|\+1|\+)?((\(\+?1-[2-9][0-9]{1,2}\))|(\(\+?[2-8][0-9][0-9]\))|(\(\+?[1-9][0-9]\))|(\(\+?[17]\))|(\([2-9][2-9]\))|([ \-\.]{0,3}[0-9]{2,4}))?([ \-\.][0-9])?([ \-\.]{0,3}[0-9]{2,4}){2,3}$" type="text" class="form-control" id="phone" placeholder="212-692-9392" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex flex-row">
+              <div class="circle text-light bg-dark">2</div>
+              <h3>PAYMENT DETAILS</h3>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <div>
+                  <label for="creditCard">Credit Card Number</label>
+                  <input pattern="[0-9]{4,4} ?- ?[0-9]{4,4} ?- ?[0-9]{4,4} ?- ?[0-9]{4,4}" type="text" class="form-control" id="creditCard" placeholder="0000 - 0000 - 0000 - 0000" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <div>
+                  <label for="security">Security code</label>
+                  <input pattern="[0-9]{3,3}" type="password" class="form-control" id="security" placeholder="***" required>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <div>
+                  <label for="expires">Expiration date</label>
+                  <input pattern="[0-1][0-9]/[0-9]{2,2}" type="text" class="form-control" id="expires" placeholder="MM/YY" required>
+                </div>
+              </div>
+            </div>
+            <input type="submit" class="btn btn-success col-md-12" value="COMPLETE PURCHASE"></button>
+          </form>
+        </div>
+        <div class="col-sm-4">
+          <div class="summary">
+            <div>
+              <h3>Your order</h3>
+              <div class="d-flex justify-content-between">
+                <div>Apple Watch Sport</div>
+                <div>$ 580</div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div>Modern Buckle</div>
+                <div>$ 380</div>
+              </div>
+              <hr/>
+              <div class="d-flex justify-content-between">
+                <div>Total purchases</div>
+                <div>$ 960</div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div>Estimated tax</div>
+                <div>$ 0</div>
+              </div>
+              <hr/>
+              <div class="d-flex justify-content-between">
+                <div><b>Total<b></div>
+                <div><h2>$ 580</h2></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
