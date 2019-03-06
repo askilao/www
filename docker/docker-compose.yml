@@ -1,0 +1,41 @@
+version: "3"
+services:
+  www:
+      build:
+          context: .
+          dockerfile: ./Dockerfile.www
+      environment:
+          MYSQL_DATABASE: myDb
+          MYSQL_USER: user
+          MYSQL_PASSWORD: test
+          MYSQL_ROOT_PASSWORD: test
+          MYSQL_ROOT_USER: root
+      ports:
+          - 80:80
+      volumes:
+          - ../:/var/www/html/
+      networks:
+          - default
+  db:
+      image: mariadb
+      ports: 
+          - 3306:3306
+      environment:
+          MYSQL_DATABASE: myDb
+          MYSQL_USER: user
+          MYSQL_PASSWORD: test
+          MYSQL_ROOT_PASSWORD: test
+          MYSQL_ROOT_USER: root
+      networks:
+          - default
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      ports:
+          - 8080:80
+      environment:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: test
+          MYSQL_ROOT_PASSWORD: test
+      networks:
+          - default
+ 

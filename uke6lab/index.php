@@ -8,6 +8,10 @@ $twig = new Twig_Environment($loader, array());
 
 
 $db = DB::getDBConnection();
+if ($db==null) {
+    echo 'Error: no DB connection';
+    die();
+} 
 
 $sql = 'SELECT id, owner, size, description FROM filesOnDisc ORDER BY name';
 $sth = $db->prepare ($sql);
