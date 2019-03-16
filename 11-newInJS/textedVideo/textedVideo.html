@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Video med teksting</title>
+  <style>
+    body>div {
+      max-width: 900px;
+      max-height: 400px;
+      display: flex;
+    }
+
+    video {
+      flex-grow: 0;
+      flex-shrink: 2;
+    }
+    #subtitles {
+      width: 300px
+      height: 50px;
+      overflow-y: scroll;
+      flex-grow: 1;
+      flex-shrink: 8;
+    }
+
+    #subtitles ul {
+      list-style-type: none;
+    }
+
+    #subtitles li {
+      padding: 2px 5px;
+    }
+
+    #subtitles li.active {
+      background-color: #EEE;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <video id="video" controls preload="metadata">
+  		<source src="sintel-short.webm" type="video/webm">
+  		<track label="English" default kind="subtitles" srclang="en" src="sintel-en.vtt">
+  	</video>
+    <div id="subtitles"></div>
+  </div>
+  <script>
+    const video = document.querySelector('#video');          // The actuall video
+    const track = document.querySelector('#video track');    // The html track element
+    const subtitles = document.querySelector('#subtitles');  // Where should subtitles be placed
+    const cues = [];                                         // An actuall array is easier to handle than the cue list
+
+    track.addEventListener('load',e=>{                       // When the text track has been loaded we can access the cues
+      video.textTracks[0].mode='hidden';                     // Do not show it on the video
+      console.log (e, 'Text track loaded');                  // Show the event
+      const trackCues = e.target.track.cues;
+      for (let i=0; i<trackCues.length; i++) {               // Go through the cue list
+        cues.push(trackCues[i]);                             // Add all cues to an array
+      };
+      showSubtitles();                                       // Show all cues alongside the video
+    });
+
+    video.textTracks[0].addEventListener('cuechange', e=>{   // When a cue change event occurs
+      console.log(e);                                        // Show event info in console
+      document.querySelectorAll('#subtitles ul li').forEach(li=>{
+        li.classList.remove('active');                       // Loop over all shown cues, remove class 'active'
+      });
+
+      for (let i=0; i<e.target.activeCues.length; i++) {     // Loop over active cues
+        var elem = document.querySelector(`#subtitles li[data-id="${e.target.activeCues[i].id}"]`);
+        elem.classList.add('active');    // Add class 'active' to active cues
+        elem.scrollIntoView({
+            behavior: 'auto',
+            block: 'center',
+            inline: 'center'
+        });
+      }
+    });
+    
+
+    document.getElementById("subtitles").addEventListener("click",function(e) {
+        var int = e.target.getAttribute('data-id');
+        time = video.textTracks[0].cues[int].startTime;
+        if (time > 0) {
+          video.pause();
+          video.currentTime = time;
+          video.play();
+        }
+        
+    });
+
+    /**
+     * Takes cues (subtitles) from the global array cues and adds them as
+     * list items to an unnumbered list in the subtitles elementHeader.
+     */
+    function showSubtitles() {
+
+      let html = '<ul>';
+      cues.forEach(cue=>{
+        html += `<li data-id="${cue.id}">${cue.text.nl2br()}</li>`;
+      });
+      html += '</ul>';
+      subtitles.innerHTML = html;
+    }
+
+    /**
+     * Adds newline to br tag conversion for Strings
+     *
+     * @return String the content of the string with all newline characters replaced by a 'br' tag.
+     */
+    String.prototype.nl2br = function () {
+      return this.replace(/\n/g, "<br />");
+    }
+  </script>
+</body>
+</html>

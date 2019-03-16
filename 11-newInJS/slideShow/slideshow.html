@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Instagram slideshow</title>
+  <style>
+    #slideshow {
+      position: relative;
+    }
+    #slideshow div:first-child,
+    #slideshow div:last-child {
+      border: 1px solid black;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      width: 400px;
+      height: 400px;
+      background-image: url();
+      background-color: white;
+      transition: opacity 2s;
+    }
+
+    #slideshow div:last-child {
+      opacity: 0;
+    }
+  </style>
+  <script type="module" src="js/slideshow.js" charset="utf-8"></script>
+</head>
+<body>
+  <div id="slideshow">
+  </div>
+  <script>
+    window.addEventListener('load', e=>{
+      createSlideshow('#slideshow', '');
+    });
+  </script>
+</body>
+</html>

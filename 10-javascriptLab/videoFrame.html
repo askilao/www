@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Grab frame from video</title>
+  <style>
+    canvas {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <video id="player" controls src="computerphile.mp4" height="400" width="400"></video>
+  <canvas id="cv" height="400" width="400"></canvas><br>
+  <button id="save_png">Save as PNG</button>
+  <div class="slidecontainer">
+    <button id="save_jpg">Save as JPG</button>
+    <p>JPG quality 0-100:</p>
+    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+      <div id="dispRange">
+      </div>
+  </div>
+
+  <script>
+    const player = document.getElementById('player');    // Get reference to video player
+    const slider = document.getElementById('myRange');
+    const display = document.getElementById('dispRange');
+
+    display.innerHTML = slider.value;
+    slider.oninput = function () {
+      display.innerHTML = this.value;
+    }
+
+    const canvas = document.querySelector('#cv');        // Get reference to the canvas
+    const ctx = canvas.getContext('2d');                 // Get reference to the 2d context (this is where we draw)
+
+    document.querySelector('#save_png')                  // Get reference to the button
+      .addEventListener('click', function(e) {           // Add on click handler
+        cv.height = player.videoHeight;                  // Set height
+        cv.width = player.videoWidth;                    // and width of canvas to height and width of video
+        ctx.drawImage(player, 0, 0);                     // Draw the currently showing image from the video player on the canvas
+        const png = canvas.toDataURL();                  // Get contents of canvas as png image (default)
+        sendToServer(png)
+    
+      });
+    document.querySelector('#save_jpg')                  // Get reference to the button
+      .addEventListener('click', function(e) {           // Add on click handler
+        cv.height = player.videoHeight;                  // Set height
+        cv.width = player.videoWidth;                    // and width of canvas to height and width of video
+        ctx.drawImage(player, 0, 0);                     // Draw the currently showing image from the video player on the canvas
+        var quality = (slider.value/100);
+        const jpg = canvas.toDataURL('image/jpeg', quality);   // Get contents of canvas as full quality jpg image
+        sendToServer(jpg)
+      });
+
+    function sendToServer(data) {
+      var url = 'saveFrame.php';
+      var formData = new FormData();
+      formData.append('imageURL', data);
+      fetch(url, {method: 'POST', body: formData})
+      .then(function (response) {
+      location.reload();
+      return response.text();
+      })
+      .then(function (body) {
+        console.log(body);
+      });  
+    }
+  </script>
+</body>
+</html>
